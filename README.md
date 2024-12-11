@@ -1,2 +1,2 @@
 # backend-e
-Backend repository for project e
+Backend repository template using Typescript + Express
