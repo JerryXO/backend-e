@@ -1,6 +1,6 @@
 import { HandyLogger, HandyLoggerBase, LogLevels } from 'handy-logger';
 const handyLogger: HandyLogger = new HandyLogger({
-  title: 'My Awesome App',
+  title: 'Backend-E',
   level: LogLevels.Silly,
 });
 

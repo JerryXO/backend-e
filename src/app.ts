@@ -2,6 +2,10 @@ import 'reflect-metadata';
 import { createExpressServer, useContainer } from 'routing-controllers';
 import { Express, Request } from 'express';
 import { Container } from 'typedi';
+import { Sequelize } from 'sequelize-typescript';
+import { logger } from './libs';
+import { config } from 'dotenv';
+config();
 
 useContainer(Container);
 
@@ -42,4 +46,30 @@ export const routingControllerOptions = {
   },
 };
 
+// Initialize sequelize
+const sequelize = new Sequelize({
+  database: process.env.DB_NAME,
+  username: process.env.USER_NAME,
+  password: process.env.PASSWORD,
+  host: process.env.DB_HOST,
+  dialect: 'mysql',
+  port: Number(process.env.DB_PORT),
+  models: [__dirname + '/models/**/*{.js,.ts}'],
+  logging: false,
+});
+
+const connectDB = async () => {
+  try {
+    await sequelize.authenticate();
+    logger.info('Database connection established successfully.');
+  } catch (error) {
+    logger.error('Unable to connect to the database:', error);
+    process.exit(1);
+  }
+};
+
 export const app: Express = createExpressServer(routingControllerOptions);
+
+(async () => {
+  await connectDB();
+})();
