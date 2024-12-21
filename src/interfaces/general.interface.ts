@@ -42,3 +42,8 @@ export interface Config {
   envConfigs: ObjectGeneric;
   appConfigs: ObjectGeneric;
 }
+
+export interface DecryptBodyOptions {
+  class: any;
+  required?: boolean;
+}
