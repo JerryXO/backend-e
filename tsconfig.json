@@ -12,10 +12,12 @@
     "moduleResolution": "node",
     "importHelpers": true,
     "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
     "types": [
       "node"
     ],
     "typeRoots": [
+      "./src/typings",
       "node_modules/@types"
     ]
   },

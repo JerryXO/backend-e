@@ -1,4 +1,4 @@
-import { JsonController, Post } from "routing-controllers";
+import { Body, JsonController, Post} from "routing-controllers";
 import { AuthService } from "../services";
 import { BaseController } from "./base.controller";
 
@@ -9,8 +9,8 @@ export class AuthController extends BaseController {
     super()
   }
 
-  @Post('/login')
-  public async loginUser() {
-    return await this.authService.loginUser();
+  @Post('/google-login')
+  public async googleLogin(@Body() profile: any) {
+    return await this.authService.handleGoogleLogin(profile);
   }
 }

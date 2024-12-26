@@ -5,6 +5,10 @@ import { Container } from 'typedi';
 import { Sequelize } from 'sequelize-typescript';
 import { logger } from './libs';
 import { config } from 'dotenv';
+import session from 'express-session';
+import "./configs/passport";
+import passport from "passport";
+
 config();
 
 useContainer(Container);
@@ -69,6 +73,17 @@ const connectDB = async () => {
 };
 
 export const app: Express = createExpressServer(routingControllerOptions);
+
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET || 'your-session-secret',
+    resave: false,
+    saveUninitialized: false,
+  })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 (async () => {
   await connectDB();
